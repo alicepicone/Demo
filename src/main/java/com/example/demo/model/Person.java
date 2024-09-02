@@ -1,23 +1,26 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
-import java.util.UUID;
-
+@Entity
+@Table
 public class Person {
 
-    private final UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private final int id;
     @NotBlank
     private final String name;
 
-    public Person(@JsonProperty("id") UUID id,
+    public Person(@JsonProperty("id") int id,
                   @JsonProperty("name") String name) {
         this.id = id;
         this.name = name;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
