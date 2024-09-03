@@ -8,6 +8,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("api/v1/person")
 @RestController
@@ -31,5 +32,11 @@ public class PersonController {
     public List<Person> getAllPeople()
     {
         return personService.getAllPeople();
+    }
+
+    @GetMapping(path = "{id}")
+    public Optional<Person> getPersonById(@PathVariable("id") int id)
+    {
+        return personService.getPersonById(id);
     }
 }
