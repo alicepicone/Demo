@@ -1,27 +1,24 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
+@Entity
+@Table
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Person {
 
-    private final UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
     @NotBlank
-    private final String name;
+    private String name;
 
-    public Person(@JsonProperty("id") UUID id,
-                  @JsonProperty("name") String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
 }
