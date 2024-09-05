@@ -8,7 +8,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequestMapping("api/v1/person")
 @RestController
@@ -41,8 +40,7 @@ public class PersonController {
 
         if(person != null)
         {
-            String professionDescription = person.getProfession().getDescription();
-            return professionDescription;
+            return person.getProfession().getDescription();
         } else {
             return "name doesn't exist!";
         }
