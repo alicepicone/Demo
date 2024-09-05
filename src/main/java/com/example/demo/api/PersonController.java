@@ -34,10 +34,18 @@ public class PersonController {
         return personService.getAllPeople();
     }
 
-    @GetMapping(path = "{id}")
-    public Optional<Person> getPersonById(@PathVariable("id") int id)
+    @GetMapping("/professionByPerson")
+    public String getProfessionByPerson(@RequestParam("name") String name)
     {
-        return personService.getPersonById(id);
+        Person person = personService.findByName(name);
+
+        if(person != null)
+        {
+            String professionDescription = person.getProfession().getDescription();
+            return professionDescription;
+        } else {
+            return "name doesn't exist!";
+        }
     }
 }
 

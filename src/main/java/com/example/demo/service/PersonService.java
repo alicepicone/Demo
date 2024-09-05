@@ -29,8 +29,8 @@ public class PersonService {
         return personDao.findAll();
     }
 
-    public Optional<Person> getPersonById(int id)
+    public Person findByName(String name)
     {
-        return personDao.findById(id);
+        return personDao.findByName(name);
     }
 }

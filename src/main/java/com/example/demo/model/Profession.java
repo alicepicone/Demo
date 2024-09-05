@@ -10,20 +10,15 @@ import lombok.*;
 @AllArgsConstructor
 @Data
 @Getter
-public class Person {
+public class Profession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     @NotBlank
-    private String name;
+    private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "profession_id")
-    private Profession profession;
-
-    public Profession getProfession() {
-        return profession;
+    public @NotBlank String getDescription() {
+        return description;
     }
 }
