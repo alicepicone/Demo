@@ -36,14 +36,7 @@ public class PersonController {
     @GetMapping("/professionByPerson")
     public String getProfessionByPerson(@RequestParam("name") String name)
     {
-        Person person = personService.findByName(name);
-
-        if(person != null)
-        {
-            return person.getProfession().getDescription();
-        } else {
-            return "name doesn't exist!";
-        }
+        return personService.professionByPersonName(name);
     }
 }
 

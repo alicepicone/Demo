@@ -29,8 +29,14 @@ public class PersonService {
         return personDao.findAll();
     }
 
-    public Person findByName(String name)
+    public String professionByPersonName(String name)
     {
-        return personDao.findByName(name);
+        Person person = personDao.findByName(name);
+
+        if(person == null)
+        {
+            return "name doesn't exist!";
+        }
+        return person.getProfession().getDescription();
     }
 }

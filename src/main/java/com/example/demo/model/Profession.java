@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table
 @NoArgsConstructor
@@ -16,8 +18,4 @@ public class Profession {
     private int id;
     @NotBlank
     private String description;
-
-    public @NotBlank String getDescription() {
-        return description;
-    }
 }

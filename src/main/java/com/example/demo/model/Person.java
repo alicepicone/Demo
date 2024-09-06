@@ -21,8 +21,4 @@ public class Person {
     @ManyToOne
     @JoinColumn(name = "profession_id")
     private Profession profession;
-
-    public Profession getProfession() {
-        return profession;
-    }
 }
