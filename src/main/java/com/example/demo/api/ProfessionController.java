@@ -4,7 +4,6 @@ import com.example.demo.model.Profession;
 import com.example.demo.service.ProfessionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
