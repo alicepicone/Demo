@@ -38,5 +38,20 @@ public class PersonController {
     {
         return personService.professionByPersonName(name);
     }
+
+    @GetMapping("/namesByChar")
+    public String getNamesByChar(@RequestParam("char") String character) {
+        // Validazione dell'input
+        if (!personService.isValidCharacter(character)) {
+            return "Invalid input";
+        }
+        // Recupero dei nomi dal database
+        String names = personService.getNamesStartingWith(character);
+
+        if (names.isEmpty()) {
+            return "Not Found";
+        }
+        return names;
+    }
 }
 
