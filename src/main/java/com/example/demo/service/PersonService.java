@@ -47,8 +47,14 @@ public class PersonService {
     public String getNamesStartingWith(String character) {
         List<Person> persons = personDao.findByNameStartingWithIgnoreCase(character);
 
-        return persons.stream()
-                .map(Person::getName)
-                .collect(Collectors.joining(", "));
+        StringBuilder sb = new StringBuilder();
+        if (!persons.isEmpty()) {
+            for (Person person : persons) {
+                sb.append(person.getName()).append(", ");
+            }
+            // cancella l'ultima virgola e lo spazio
+            sb.deleteCharAt(sb.length() - 2);
+        }
+        return sb.toString();
     }
 }
