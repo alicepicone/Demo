@@ -18,4 +18,14 @@ public class Profession {
     private int id;
     @NotBlank
     private String description;
+
+    @OneToMany(mappedBy = "profession")
+    List<Person> persons;
+
+    @PreRemove
+    private void removeAssociationsWithChilds() {
+        for (Person e : persons) {
+            e.setProfession(null);
+        }
+    }
 }

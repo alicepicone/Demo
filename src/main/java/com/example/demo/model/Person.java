@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.Optional;
+
 @Entity
 @Table
 @NoArgsConstructor
@@ -18,7 +20,10 @@ public class Person {
     @NotBlank
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profession_id")
     private Profession profession;
+
+    @Column(name = "profession_id", insertable = false, updatable = false)
+    private int professionId;
 }
