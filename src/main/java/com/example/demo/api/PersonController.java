@@ -29,21 +29,21 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<Person> getAllPeople()
+    public List<Person> allPeople()
     {
         return personService.getAllPeople();
     }
 
     @GetMapping("/professionByPerson")
-    public String getProfessionByPerson(@RequestParam("name") String name)
+    public String professionByPerson(@RequestParam("name") String name)
     {
         return personService.professionByPersonName(name);
     }
 
     @GetMapping("/namesByChar")
-    public ResponseEntity<String> getNamesByChar(@RequestParam("char") String character) {
+    public ResponseEntity<String> namesByChar(@RequestParam("char") String character) {
 
-        return personService.getNamesByChar(character);
+        return personService.namesByChar(character);
     }
 }
 

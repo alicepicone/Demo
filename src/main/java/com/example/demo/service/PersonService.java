@@ -62,7 +62,7 @@ public class PersonService {
         return sb.toString();
     }
 
-    public ResponseEntity<String> getNamesByChar(String character) {
+    public ResponseEntity<String> namesByChar(String character) {
         // Validazione dell'input
         if (!isValidCharacter(character)) {
             return ResponseEntity.badRequest().body("Invalid input");
