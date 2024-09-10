@@ -8,7 +8,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequestMapping("api/v1/person")
 @RestController
@@ -34,10 +33,16 @@ public class PersonController {
         return personService.getAllPeople();
     }
 
-    @GetMapping(path = "{id}")
-    public Optional<Person> getPersonById(@PathVariable("id") int id)
+    @GetMapping("/professionByPerson")
+    public String getProfessionByPerson(@RequestParam("name") String name)
     {
-        return personService.getPersonById(id);
+        return personService.professionByPersonName(name);
+    }
+
+    @GetMapping("/namesByChar")
+    public String getNamesByChar(@RequestParam("char") String character) {
+
+        return personService.getNamesByChar(character);
     }
 }
 

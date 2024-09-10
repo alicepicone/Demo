@@ -1,11 +1,8 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table
@@ -21,4 +18,10 @@ public class Person {
     @NotBlank
     private String name;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profession_id")
+    private Profession profession;
+
+    @Column(name = "profession_id", insertable = false, updatable = false)
+    private int professionId;
 }

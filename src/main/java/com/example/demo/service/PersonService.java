@@ -2,11 +2,13 @@ package com.example.demo.service;
 
 import com.example.demo.dao.PersonDao;
 import com.example.demo.model.Person;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
@@ -29,8 +31,46 @@ public class PersonService {
         return personDao.findAll();
     }
 
-    public Optional<Person> getPersonById(int id)
+    public String professionByPersonName(String name)
     {
-        return personDao.findById(id);
+        Person person = personDao.findByName(name);
+
+        if(person == null)
+        {
+            return "name doesn't exist!";
+        }
+        return person.getProfession().getDescription();
+    }
+
+    public boolean isValidCharacter(String character) {
+        return StringUtils.isNotBlank(character) && character.matches("[a-zA-Z]");
+    }
+
+    public String getNamesStartingWith(String character) {
+        List<Person> persons = personDao.findByNameStartingWithIgnoreCase(character);
+
+        StringBuilder sb = new StringBuilder();
+        if (!persons.isEmpty()) {
+            for (Person person : persons) {
+                sb.append(person.getName()).append(", ");
+            }
+            // cancella l'ultima virgola e lo spazio
+            sb.deleteCharAt(sb.length() - 2);
+        }
+        return sb.toString();
+    }
+
+    public String getNamesByChar(String character) {
+        // Validazione dell'input
+        if (!isValidCharacter(character)) {
+            return "Invalid input";
+        }
+        // Recupero dei nomi dal database
+        String names = getNamesStartingWith(character);
+
+        if (names.isEmpty()) {
+            return "Not Found";
+        }
+        return names;
     }
 }
