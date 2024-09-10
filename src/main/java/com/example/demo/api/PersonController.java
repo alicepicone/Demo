@@ -41,17 +41,8 @@ public class PersonController {
 
     @GetMapping("/namesByChar")
     public String getNamesByChar(@RequestParam("char") String character) {
-        // Validazione dell'input
-        if (!personService.isValidCharacter(character)) {
-            return "Invalid input";
-        }
-        // Recupero dei nomi dal database
-        String names = personService.getNamesStartingWith(character);
 
-        if (names.isEmpty()) {
-            return "Not Found";
-        }
-        return names;
+        return personService.getNamesByChar(character);
     }
 }
 
