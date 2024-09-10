@@ -4,7 +4,9 @@ import com.example.demo.dao.PersonDao;
 import com.example.demo.model.Person;
 import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -60,17 +62,17 @@ public class PersonService {
         return sb.toString();
     }
 
-    public String getNamesByChar(String character) {
+    public ResponseEntity<String> getNamesByChar(String character) {
         // Validazione dell'input
         if (!isValidCharacter(character)) {
-            return "Invalid input";
+            return ResponseEntity.badRequest().body("Invalid input");
         }
         // Recupero dei nomi dal database
         String names = getNamesStartingWith(character);
 
         if (names.isEmpty()) {
-            return "Not Found";
+            return ResponseEntity.noContent().build();
         }
-        return names;
+        return ResponseEntity.ok(names);
     }
 }

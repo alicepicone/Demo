@@ -4,6 +4,7 @@ import com.example.demo.model.Person;
 import com.example.demo.service.PersonService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +41,7 @@ public class PersonController {
     }
 
     @GetMapping("/namesByChar")
-    public String getNamesByChar(@RequestParam("char") String character) {
+    public ResponseEntity<String> getNamesByChar(@RequestParam("char") String character) {
 
         return personService.getNamesByChar(character);
     }
