@@ -11,8 +11,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(NoResultsFoundException.class)
-    public final ResponseEntity<ErrorResponse> exceptionNoResultsFound(Exception exception) {
+    @ExceptionHandler(NotFoundException.class)
+    public final ResponseEntity<ErrorResponse> exceptionNoFound(Exception exception) {
         ErrorResponse error = new ErrorResponse();
 
         error.setCodice(HttpStatus.NOT_FOUND.value());
@@ -21,8 +21,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<ErrorResponse>(error, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(InvalidInputException.class)
-    public final ResponseEntity<ErrorResponse> exceptionInvalidInput(Exception exception) {
+    @ExceptionHandler(BadRequestException.class)
+    public final ResponseEntity<ErrorResponse> exceptionBadRequest(Exception exception) {
         ErrorResponse error = new ErrorResponse();
 
         error.setCodice(HttpStatus.BAD_REQUEST.value());

@@ -1,10 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.PersonDao;
-import com.example.demo.exception.InvalidInputException;
-import com.example.demo.exception.NoResultsFoundException;
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Person;
 import io.micrometer.common.util.StringUtils;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -50,19 +51,19 @@ public class PersonService {
         return sb.toString();
     }
 
-    public ResponseEntity<String> namesByChar(String character) throws InvalidInputException, NoResultsFoundException {
+    @SneakyThrows
+    public ResponseEntity<String> getNamesByChar(String character) {
 
         // Validazione dell'input
         if (!isValidCharacter(character)) {
-            throw new InvalidInputException("Invalid input");
+            throw new BadRequestException("Invalid input");
         }
         // Recupero dei nomi dal database
         String names = getNamesStartingWith(character);
 
         if (names.isEmpty()) {
-            throw new NoResultsFoundException("Nessun nome trovato che inizi con la lettera " + character);
+            throw new NotFoundException("Nessun nome trovato che inizi con la lettera " + character);
         }
         return ResponseEntity.ok(names);
-
     }
 }

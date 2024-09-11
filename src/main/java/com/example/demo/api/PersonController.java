@@ -1,10 +1,9 @@
 package com.example.demo.api;
 
-import com.example.demo.exception.InvalidInputException;
-import com.example.demo.exception.NoResultsFoundException;
 import com.example.demo.model.Person;
 import com.example.demo.service.PersonService;
 import jakarta.validation.Valid;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
@@ -37,9 +36,10 @@ public class PersonController {
     }
 
     @GetMapping("/names")
-    public ResponseEntity<String> getNamesByChar(@RequestParam("char") String character) throws InvalidInputException, NoResultsFoundException {
+    @SneakyThrows
+    public ResponseEntity<String> getNamesByChar(@RequestParam("char") String character) {
 
-        return personService.namesByChar(character);
+        return personService.getNamesByChar(character);
     }
 }
 
