@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("api/v1/profession")
+@RequestMapping("api/v1/professions")
 @RestController
 public class ProfessionController {
 
@@ -29,7 +29,7 @@ public class ProfessionController {
     }
 
     @GetMapping
-    public List<Profession> getAllProfession()
+    public List<Profession> professions()
     {
         return professionService.getAllProfession();
     }

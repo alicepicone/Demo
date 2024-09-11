@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("api/v1/person")
+@RequestMapping("api/v1/persons")
 @RestController
 public class PersonController {
 
@@ -29,7 +29,7 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<Person> allPeople()
+    public List<Person> people()
     {
         return personService.getAllPeople();
     }
