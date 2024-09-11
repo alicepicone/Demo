@@ -22,7 +22,7 @@ public class ProfessionController {
     }
 
     @GetMapping("/by_person")
-    public String professionByPerson(@RequestParam("name") String name)
+    public String getProfessionByPersonName(@RequestParam("name") String name)
     {
         return professionService.professionByPersonName(name);
     }
@@ -34,7 +34,7 @@ public class ProfessionController {
     }
 
     @GetMapping
-    public List<Profession> professions()
+    public List<Profession> getAllProfessions()
     {
         return professionService.getAllProfession();
     }

@@ -31,13 +31,13 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<Person> people()
+    public List<Person> getAllPeople()
     {
         return personService.getAllPeople();
     }
 
     @GetMapping("/names")
-    public ResponseEntity<String> namesByChar(@RequestParam("char") String character) throws InvalidInputException, NoResultsFoundException {
+    public ResponseEntity<String> getNamesByChar(@RequestParam("char") String character) throws InvalidInputException, NoResultsFoundException {
 
         return personService.namesByChar(character);
     }
