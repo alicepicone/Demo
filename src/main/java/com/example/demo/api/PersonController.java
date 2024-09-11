@@ -1,5 +1,7 @@
 package com.example.demo.api;
 
+import com.example.demo.exception.InvalidInputException;
+import com.example.demo.exception.NoResultsFoundException;
 import com.example.demo.model.Person;
 import com.example.demo.service.PersonService;
 import jakarta.validation.Valid;
@@ -41,7 +43,7 @@ public class PersonController {
     }
 
     @GetMapping("/names")
-    public ResponseEntity<String> namesByChar(@RequestParam("char") String character) {
+    public ResponseEntity<String> namesByChar(@RequestParam("char") String character) throws InvalidInputException, NoResultsFoundException {
 
         return personService.namesByChar(character);
     }

@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.PersonDao;
+import com.example.demo.exception.InvalidInputException;
+import com.example.demo.exception.NoResultsFoundException;
 import com.example.demo.model.Person;
 import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,17 +61,19 @@ public class PersonService {
         return sb.toString();
     }
 
-    public ResponseEntity<String> namesByChar(String character) {
+    public ResponseEntity<String> namesByChar(String character) throws InvalidInputException, NoResultsFoundException {
+
         // Validazione dell'input
         if (!isValidCharacter(character)) {
-            return ResponseEntity.badRequest().body("Invalid input");
+            throw new InvalidInputException("Invalid input");
         }
         // Recupero dei nomi dal database
         String names = getNamesStartingWith(character);
 
         if (names.isEmpty()) {
-            return ResponseEntity.noContent().build();
+            throw new NoResultsFoundException("Nessun nome trovato che inizi con la lettera " + character);
         }
         return ResponseEntity.ok(names);
+
     }
 }
