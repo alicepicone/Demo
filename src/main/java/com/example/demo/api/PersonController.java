@@ -34,13 +34,13 @@ public class PersonController {
         return personService.getAllPeople();
     }
 
-    @GetMapping("/professionByPerson")
+    @GetMapping("/profession")
     public String professionByPerson(@RequestParam("name") String name)
     {
         return personService.professionByPersonName(name);
     }
 
-    @GetMapping("/namesByChar")
+    @GetMapping("/names")
     public ResponseEntity<String> namesByChar(@RequestParam("char") String character) {
 
         return personService.namesByChar(character);
