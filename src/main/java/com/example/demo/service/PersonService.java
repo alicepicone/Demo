@@ -32,17 +32,6 @@ public class PersonService {
         return personDao.findAll();
     }
 
-    public String professionByPersonName(String name)
-    {
-        Person person = personDao.findByName(name);
-
-        if(person == null)
-        {
-            return "name doesn't exist!";
-        }
-        return person.getProfession().getDescription();
-    }
-
     public boolean isValidCharacter(String character) {
         return StringUtils.isNotBlank(character) && character.matches("[a-zA-Z]");
     }

@@ -36,12 +36,6 @@ public class PersonController {
         return personService.getAllPeople();
     }
 
-    @GetMapping("/profession")
-    public String professionByPerson(@RequestParam("name") String name)
-    {
-        return personService.professionByPersonName(name);
-    }
-
     @GetMapping("/names")
     public ResponseEntity<String> namesByChar(@RequestParam("char") String character) throws InvalidInputException, NoResultsFoundException {
 

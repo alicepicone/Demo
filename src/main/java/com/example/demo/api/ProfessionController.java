@@ -21,6 +21,11 @@ public class ProfessionController {
         this.professionService = professionService;
     }
 
+    @GetMapping("/by_person")
+    public String professionByPerson(@RequestParam("name") String name)
+    {
+        return professionService.professionByPersonName(name);
+    }
 
     @PostMapping
     public void addProfession(@Valid @NonNull @RequestBody Profession profession)

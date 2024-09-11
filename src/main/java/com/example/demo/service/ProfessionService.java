@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.dao.PersonDao;
 import com.example.demo.dao.ProfessionDao;
+import com.example.demo.model.Person;
 import com.example.demo.model.Profession;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,23 @@ import java.util.List;
 public class ProfessionService {
 
     private final ProfessionDao professionDao;
+    private final PersonDao personDao;
 
     @Autowired
-    public ProfessionService(ProfessionDao professionDao) {
+    public ProfessionService(ProfessionDao professionDao, PersonDao personDao) {
         this.professionDao = professionDao;
+        this.personDao = personDao;
+    }
+
+    public String professionByPersonName(String name)
+    {
+        Person person = personDao.findByName(name);
+
+        if(person == null)
+        {
+            return "name doesn't exist!";
+        }
+        return person.getProfession().getDescription();
     }
 
     public Profession addProfession(Profession profession)
