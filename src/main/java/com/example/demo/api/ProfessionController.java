@@ -42,8 +42,8 @@ public class ProfessionController {
         return professionService.getAllProfession();
     }
 
-    @GetMapping("/id")
-    public Optional<ProfessionDto> getProfessionById(@RequestParam int id)
+    @GetMapping("/{id}")
+    public Optional<ProfessionDto> getProfessionById(@PathVariable("id") int id)
     {
         return professionService.getProfessionById(id);
     }
