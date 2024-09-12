@@ -1,5 +1,7 @@
 package com.example.demo.api;
 
+import com.example.demo.dto.PersonDto;
+import com.example.demo.dto.ProfessionDto;
 import com.example.demo.model.Profession;
 import com.example.demo.service.ProfessionService;
 import jakarta.validation.Valid;
@@ -8,6 +10,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("api/v1/professions")
 @RestController
@@ -34,9 +37,15 @@ public class ProfessionController {
     }
 
     @GetMapping
-    public List<Profession> getAllProfessions()
+    public List<ProfessionDto> getAllProfessions()
     {
         return professionService.getAllProfession();
+    }
+
+    @GetMapping("/id")
+    public Optional<ProfessionDto> getProfessionById(@RequestParam int id)
+    {
+        return professionService.getProfessionById(id);
     }
 
     @DeleteMapping("/{id}")
@@ -45,9 +54,9 @@ public class ProfessionController {
     }
 
     @PutMapping("/{id}")
-    public Profession updateProfessionName(@PathVariable("id") int id, @RequestBody Profession profession)
+    public void updateProfessionName(@PathVariable("id") int id, @RequestBody Profession profession)
     {
-        return professionService.updateProfessionNameById(id, profession.getDescription());
+        professionService.updateProfessionNameById(id, profession.getDescription());
     }
 
 }

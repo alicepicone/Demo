@@ -1,5 +1,6 @@
 package com.example.demo.api;
 
+import com.example.demo.dto.PersonDto;
 import com.example.demo.model.Person;
 import com.example.demo.service.PersonService;
 import jakarta.validation.Valid;
@@ -10,6 +11,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("api/v1/persons")
 @RestController
@@ -30,9 +32,15 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<Person> getAllPeople()
+    public List<PersonDto> getAllPeople()
     {
         return personService.getAllPeople();
+    }
+
+    @GetMapping("/id")
+    public Optional<PersonDto> getPeopleById(@RequestParam int id)
+    {
+        return personService.getPeopleById(id);
     }
 
     @GetMapping("/names")
