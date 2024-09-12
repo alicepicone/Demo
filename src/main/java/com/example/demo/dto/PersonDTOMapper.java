@@ -11,7 +11,7 @@ public class PersonDTOMapper implements Function<Person, PersonDto> {
     public PersonDto apply(Person person) {
         return new PersonDto(
                 person.getName(),
-                person.getProfession()
+                new ProfessionDto(person.getProfession().getDescription())
         );
     }
 }
