@@ -10,7 +10,6 @@ public class PersonDTOMapper implements Function<Person, PersonDto> {
     @Override
     public PersonDto apply(Person person) {
         return new PersonDto(
-                person.getId(),
                 person.getName(),
                 person.getProfession()
         );
