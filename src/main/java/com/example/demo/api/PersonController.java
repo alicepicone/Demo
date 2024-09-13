@@ -1,15 +1,19 @@
 package com.example.demo.api;
 
+import com.example.demo.dto.PersonDto;
 import com.example.demo.model.Person;
 import com.example.demo.service.PersonService;
 import jakarta.validation.Valid;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
-@RequestMapping("api/v1/person")
+@RequestMapping("api/v1/persons")
 @RestController
 public class PersonController {
 
@@ -28,19 +32,20 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<Person> getAllPeople()
+    public List<PersonDto> getAllPeople()
     {
         return personService.getAllPeople();
     }
 
-    @GetMapping("/professionByPerson")
-    public String getProfessionByPerson(@RequestParam("name") String name)
+    @GetMapping("/{id}")
+    public Optional<PersonDto> getPeopleById(@PathVariable("id") int id)
     {
-        return personService.professionByPersonName(name);
+        return personService.getPeopleById(id);
     }
 
-    @GetMapping("/namesByChar")
-    public String getNamesByChar(@RequestParam("char") String character) {
+    @GetMapping("/names")
+    @SneakyThrows
+    public ResponseEntity<String> getNamesByChar(@RequestParam("char") String character) {
 
         return personService.getNamesByChar(character);
     }

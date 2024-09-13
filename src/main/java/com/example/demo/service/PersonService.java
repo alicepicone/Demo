@@ -1,24 +1,32 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.PersonDao;
+import com.example.demo.dto.PersonDTOMapper;
+import com.example.demo.dto.PersonDto;
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Person;
 import io.micrometer.common.util.StringUtils;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
 
     private final PersonDao personDao;
+    private final PersonDTOMapper personDTOMapper;
 
     @Autowired
-    public PersonService(PersonDao personDao)
+    public PersonService(PersonDao personDao, PersonDTOMapper personDTOMapper)
     {
         this.personDao = personDao;
+        this.personDTOMapper = personDTOMapper;
     }
 
     public Person addPerson(Person person)
@@ -26,20 +34,18 @@ public class PersonService {
         return personDao.save(person);
     }
 
-    public List<Person> getAllPeople()
+    public List<PersonDto> getAllPeople()
     {
-        return personDao.findAll();
+        return personDao.findAll()
+                .stream()
+                .map(personDTOMapper)
+                .collect(Collectors.toList());
     }
 
-    public String professionByPersonName(String name)
+    public Optional<PersonDto> getPeopleById(int id)
     {
-        Person person = personDao.findByName(name);
-
-        if(person == null)
-        {
-            return "name doesn't exist!";
-        }
-        return person.getProfession().getDescription();
+        return personDao.findById(id)
+                .map(personDTOMapper);
     }
 
     public boolean isValidCharacter(String character) {
@@ -60,17 +66,19 @@ public class PersonService {
         return sb.toString();
     }
 
-    public String getNamesByChar(String character) {
+    @SneakyThrows
+    public ResponseEntity<String> getNamesByChar(String character) {
+
         // Validazione dell'input
         if (!isValidCharacter(character)) {
-            return "Invalid input";
+            throw new BadRequestException("Invalid input");
         }
         // Recupero dei nomi dal database
         String names = getNamesStartingWith(character);
 
         if (names.isEmpty()) {
-            return "Not Found";
+            throw new NotFoundException("Nessun nome trovato che inizi con la lettera " + character);
         }
-        return names;
+        return ResponseEntity.ok(names);
     }
 }
