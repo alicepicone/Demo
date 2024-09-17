@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.dao.PersonDao;
 import com.example.demo.dao.ProfessionDao;
+import com.example.demo.dto.ProfessionDTO;
+import com.example.demo.mapper.ProfessionDTOMapper;
 import com.example.demo.mapper.ProfessionRecordMapper;
 import com.example.demo.model.Person;
 import com.example.demo.model.Profession;
@@ -19,12 +21,19 @@ public class ProfessionService {
 
     private final ProfessionDao professionDao;
     private final ProfessionRecordMapper professionRecordMapper;
+    private final ProfessionDTOMapper professionDTOMapper;
     private final PersonDao personDao;
 
     @Autowired
-    public ProfessionService(ProfessionDao professionDao, ProfessionRecordMapper professionRecordMapper, PersonDao personDao) {
+    public ProfessionService(
+            ProfessionDao professionDao,
+            ProfessionRecordMapper professionRecordMapper,
+            ProfessionDTOMapper professionDTOMapper,
+            PersonDao personDao
+    ) {
         this.professionDao = professionDao;
         this.professionRecordMapper = professionRecordMapper;
+        this.professionDTOMapper = professionDTOMapper;
         this.personDao = personDao;
     }
 
@@ -51,10 +60,11 @@ public class ProfessionService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<ProfessionRecord> getProfessionById(int id)
+    public Optional<ProfessionDTO> getProfessionById(int id)
     {
         return professionDao.findById(id)
-                .map(professionRecordMapper);
+                .map(professionRecordMapper)
+                .map(professionDTOMapper);
     }
 
     public void deleteProfession(int id) {

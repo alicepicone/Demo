@@ -1,5 +1,6 @@
 package com.example.demo.api;
 
+import com.example.demo.dto.ProfessionDTO;
 import com.example.demo.model.Profession;
 import com.example.demo.record.ProfessionRecord;
 import com.example.demo.service.ProfessionService;
@@ -42,7 +43,7 @@ public class ProfessionController {
     }
 
     @GetMapping("/{id}")
-    public Optional<ProfessionRecord> getProfessionById(@PathVariable("id") int id)
+    public Optional<ProfessionDTO> getProfessionById(@PathVariable("id") int id)
     {
         return professionService.getProfessionById(id);
     }
