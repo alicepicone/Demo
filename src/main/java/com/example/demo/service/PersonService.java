@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.PersonDao;
-import com.example.demo.dto.PersonDTOMapper;
+import com.example.demo.mapper.PersonDTOMapper;
 import com.example.demo.dto.PersonDto;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.NotFoundException;

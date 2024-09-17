@@ -1,11 +1,13 @@
-package com.example.demo.dto;
+package com.example.demo.mapper;
 
+import com.example.demo.dto.PersonDto;
+import com.example.demo.dto.ProfessionDto;
 import com.example.demo.model.Person;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
-@Service
+@Component
 public class PersonDTOMapper implements Function<Person, PersonDto> {
     @Override
     public PersonDto apply(Person person) {

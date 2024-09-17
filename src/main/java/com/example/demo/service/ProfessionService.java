@@ -2,7 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dao.PersonDao;
 import com.example.demo.dao.ProfessionDao;
-import com.example.demo.dto.ProfessionDTOMapper;
+import com.example.demo.mapper.ProfessionDTOMapper;
 import com.example.demo.dto.ProfessionDto;
 import com.example.demo.model.Person;
 import com.example.demo.model.Profession;
