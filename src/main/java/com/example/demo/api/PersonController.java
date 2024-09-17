@@ -1,7 +1,7 @@
 package com.example.demo.api;
 
-import com.example.demo.dto.PersonDto;
 import com.example.demo.model.Person;
+import com.example.demo.record.PersonRecord;
 import com.example.demo.service.PersonService;
 import jakarta.validation.Valid;
 import lombok.SneakyThrows;
@@ -32,13 +32,13 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<PersonDto> getAllPeople()
+    public List<PersonRecord> getAllPeople()
     {
         return personService.getAllPeople();
     }
 
     @GetMapping("/{id}")
-    public Optional<PersonDto> getPeopleById(@PathVariable("id") int id)
+    public Optional<PersonRecord> getPeopleById(@PathVariable("id") int id)
     {
         return personService.getPeopleById(id);
     }

@@ -2,10 +2,10 @@ package com.example.demo.service;
 
 import com.example.demo.dao.PersonDao;
 import com.example.demo.dao.ProfessionDao;
-import com.example.demo.mapper.ProfessionDTOMapper;
-import com.example.demo.dto.ProfessionDto;
+import com.example.demo.mapper.ProfessionRecordMapper;
 import com.example.demo.model.Person;
 import com.example.demo.model.Profession;
+import com.example.demo.record.ProfessionRecord;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 public class ProfessionService {
 
     private final ProfessionDao professionDao;
-    private final ProfessionDTOMapper professionDTOMapper;
+    private final ProfessionRecordMapper professionRecordMapper;
     private final PersonDao personDao;
 
     @Autowired
-    public ProfessionService(ProfessionDao professionDao, ProfessionDTOMapper professionDTOMapper, PersonDao personDao) {
+    public ProfessionService(ProfessionDao professionDao, ProfessionRecordMapper professionRecordMapper, PersonDao personDao) {
         this.professionDao = professionDao;
-        this.professionDTOMapper = professionDTOMapper;
+        this.professionRecordMapper = professionRecordMapper;
         this.personDao = personDao;
     }
 
@@ -44,17 +44,17 @@ public class ProfessionService {
         return professionDao.save(profession);
     }
 
-    public List<ProfessionDto> getAllProfession() {
+    public List<ProfessionRecord> getAllProfession() {
         return professionDao.findAll()
                 .stream()
-                .map(professionDTOMapper)
+                .map(professionRecordMapper)
                 .collect(Collectors.toList());
     }
 
-    public Optional<ProfessionDto> getProfessionById(int id)
+    public Optional<ProfessionRecord> getProfessionById(int id)
     {
         return professionDao.findById(id)
-                .map(professionDTOMapper);
+                .map(professionRecordMapper);
     }
 
     public void deleteProfession(int id) {

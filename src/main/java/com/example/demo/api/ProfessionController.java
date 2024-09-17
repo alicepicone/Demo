@@ -1,8 +1,7 @@
 package com.example.demo.api;
 
-import com.example.demo.dto.PersonDto;
-import com.example.demo.dto.ProfessionDto;
 import com.example.demo.model.Profession;
+import com.example.demo.record.ProfessionRecord;
 import com.example.demo.service.ProfessionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +36,13 @@ public class ProfessionController {
     }
 
     @GetMapping
-    public List<ProfessionDto> getAllProfessions()
+    public List<ProfessionRecord> getAllProfessions()
     {
         return professionService.getAllProfession();
     }
 
     @GetMapping("/{id}")
-    public Optional<ProfessionDto> getProfessionById(@PathVariable("id") int id)
+    public Optional<ProfessionRecord> getProfessionById(@PathVariable("id") int id)
     {
         return professionService.getProfessionById(id);
     }

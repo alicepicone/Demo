@@ -1,16 +1,16 @@
 package com.example.demo.mapper;
 
-import com.example.demo.dto.ProfessionDto;
 import com.example.demo.model.Profession;
+import com.example.demo.record.ProfessionRecord;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
 @Component
-public class ProfessionDTOMapper implements Function<Profession, ProfessionDto> {
+public class ProfessionRecordMapper implements Function<Profession, ProfessionRecord> {
     @Override
-    public ProfessionDto apply(Profession profession) {
-        return new ProfessionDto(
+    public ProfessionRecord apply(Profession profession) {
+        return new ProfessionRecord(
                 profession.getDescription()
         );
     }
