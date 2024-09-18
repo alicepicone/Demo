@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,9 +47,10 @@ public class ProfessionService {
         return person.getProfession().getDescription();
     }
 
-    public Profession addProfession(Profession profession)
+    public ProfessionDTO addProfession(Profession profession)
     {
-        return professionDao.save(profession);
+        professionDao.save(profession);
+        return professionDTOMapper.apply(profession);
     }
 
     public List<ProfessionRecord> getAllProfession() {
@@ -74,11 +74,12 @@ public class ProfessionService {
         professionDao.deleteById(id);
     }
 
-    public void updateProfessionNameById(int id, String newProfession)
+    public ProfessionDTO updateProfessionNameById(int id, String newProfession)
     {
         Profession profession = professionDao.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Profession not found"));
         profession.setDescription(newProfession);
         professionDao.save(profession);
+        return professionDTOMapper.apply(profession);
     }
 }

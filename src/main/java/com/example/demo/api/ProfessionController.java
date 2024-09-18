@@ -10,7 +10,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequestMapping("api/v1/professions")
 @RestController
@@ -31,9 +30,9 @@ public class ProfessionController {
     }
 
     @PostMapping
-    public void addProfession(@Valid @NonNull @RequestBody Profession profession)
+    public ProfessionDTO addProfession(@Valid @NonNull @RequestBody Profession profession)
     {
-        professionService.addProfession(profession);
+        return professionService.addProfession(profession);
     }
 
     @GetMapping
@@ -54,9 +53,9 @@ public class ProfessionController {
     }
 
     @PutMapping("/{id}")
-    public void updateProfessionName(@PathVariable("id") int id, @RequestBody Profession profession)
+    public ProfessionDTO updateProfessionName(@PathVariable("id") int id, @RequestBody Profession profession)
     {
-        professionService.updateProfessionNameById(id, profession.getDescription());
+        return professionService.updateProfessionNameById(id, profession.getDescription());
     }
 
 }
