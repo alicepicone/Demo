@@ -7,6 +7,7 @@ import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Person;
 import io.micrometer.common.util.StringUtils;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,10 +43,11 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<PersonDTO> getPeopleById(int id)
+    public PersonDTO getPeopleById(int id)
     {
         return personDao.findById(id)
-                .map(personDTOMapper);
+                .map(personDTOMapper)
+                .orElseThrow(() -> new EntityNotFoundException("Person not found"));
     }
 
     public boolean isValidCharacter(String character) {

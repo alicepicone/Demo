@@ -38,7 +38,7 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public Optional<PersonDTO> getPeopleById(@PathVariable("id") int id)
+    public PersonDTO getPeopleById(@PathVariable("id") int id)
     {
         return personService.getPeopleById(id);
     }
