@@ -1,11 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.PersonDao;
-import com.example.demo.mapper.PersonRecordMapper;
+import com.example.demo.dto.PersonDTO;
+import com.example.demo.mapper.PersonDTOMapper;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Person;
-import com.example.demo.record.PersonRecord;
 import io.micrometer.common.util.StringUtils;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,13 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     private final PersonDao personDao;
-    private final PersonRecordMapper personRecordMapper;
+    private final PersonDTOMapper personDTOMapper;
 
     @Autowired
-    public PersonService(PersonDao personDao, PersonRecordMapper personRecordMapper)
+    public PersonService(PersonDao personDao, PersonDTOMapper personDTOMapper)
     {
         this.personDao = personDao;
-        this.personRecordMapper = personRecordMapper;
+        this.personDTOMapper = personDTOMapper;
     }
 
     public Person addPerson(Person person)
@@ -34,18 +34,18 @@ public class PersonService {
         return personDao.save(person);
     }
 
-    public List<PersonRecord> getAllPeople()
+    public List<PersonDTO> getAllPeople()
     {
         return personDao.findAll()
                 .stream()
-                .map(personRecordMapper)
+                .map(personDTOMapper)
                 .collect(Collectors.toList());
     }
 
-    public Optional<PersonRecord> getPeopleById(int id)
+    public Optional<PersonDTO> getPeopleById(int id)
     {
         return personDao.findById(id)
-                .map(personRecordMapper);
+                .map(personDTOMapper);
     }
 
     public boolean isValidCharacter(String character) {

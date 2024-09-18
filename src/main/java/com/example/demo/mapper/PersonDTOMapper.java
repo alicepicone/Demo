@@ -2,19 +2,19 @@ package com.example.demo.mapper;
 
 import com.example.demo.dto.PersonDTO;
 import com.example.demo.dto.ProfessionDTO;
-import com.example.demo.record.PersonRecord;
+import com.example.demo.model.Person;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
 @Component
-public class PersonDTOMapper implements Function<PersonRecord, PersonDTO> {
+public class PersonDTOMapper implements Function<Person, PersonDTO> {
 
     @Override
-    public PersonDTO apply(PersonRecord person) {
+    public PersonDTO apply(Person person) {
         return new PersonDTO(
-                person.name(),
-                new ProfessionDTO(person.profession().description())
+                person.getName(),
+                new ProfessionDTO(person.getProfession().getDescription())
         );
     }
 

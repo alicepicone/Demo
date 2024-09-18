@@ -56,6 +56,7 @@ public class ProfessionService {
     public List<ProfessionRecord> getAllProfession() {
         return professionDao.findAll()
                 .stream()
+                .map(professionDTOMapper)
                 .map(professionRecordMapper)
                 .collect(Collectors.toList());
     }
@@ -63,7 +64,6 @@ public class ProfessionService {
     public Optional<ProfessionDTO> getProfessionById(int id)
     {
         return professionDao.findById(id)
-                .map(professionRecordMapper)
                 .map(professionDTOMapper);
     }
 
