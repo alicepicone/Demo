@@ -43,7 +43,7 @@ public class ProfessionController {
     }
 
     @GetMapping("/{id}")
-    public Optional<ProfessionDTO> getProfessionById(@PathVariable("id") int id)
+    public ProfessionDTO getProfessionById(@PathVariable("id") int id)
     {
         return professionService.getProfessionById(id);
     }

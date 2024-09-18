@@ -61,14 +61,17 @@ public class ProfessionService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<ProfessionDTO> getProfessionById(int id)
+    public ProfessionDTO getProfessionById(int id)
     {
         return professionDao.findById(id)
-                .map(professionDTOMapper);
+                .map(professionDTOMapper)
+                .orElseThrow(() -> new EntityNotFoundException("Profession not found"));
     }
 
     public void deleteProfession(int id) {
-       professionDao.deleteById(id);
+
+        getProfessionById(id);
+        professionDao.deleteById(id);
     }
 
     public void updateProfessionNameById(int id, String newProfession)
