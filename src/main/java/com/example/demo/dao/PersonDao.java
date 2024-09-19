@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface PersonDao extends JpaRepository<Person, Integer> {
 
-    Person findByName(String name);
+    Person findByNameAndSurname(String name, String surname);
     List<Person> findByNameStartingWithIgnoreCase(String character);
 }

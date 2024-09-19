@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table
 @NoArgsConstructor
@@ -17,6 +19,12 @@ public class Person {
 
     @NotBlank
     private String name;
+
+    @NotBlank
+    private String surname;
+
+    @NotBlank
+    private LocalDate dateOfBirth;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profession_id")

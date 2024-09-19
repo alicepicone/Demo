@@ -9,6 +9,7 @@ import com.example.demo.model.Person;
 import com.example.demo.model.Profession;
 import com.example.demo.record.ProfessionRecord;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,13 +37,13 @@ public class ProfessionService {
         this.personDao = personDao;
     }
 
-    public String professionByPersonName(String name)
+    public String professionByPersonName(String name, String surname)
     {
-        Person person = personDao.findByName(name);
+        Person person = personDao.findByNameAndSurname(name, surname);
 
         if(person == null)
         {
-            return "name doesn't exist!";
+           throw new EntityNotFoundException("person doesn't exist!");
         }
         return person.getProfession().getDescription();
     }

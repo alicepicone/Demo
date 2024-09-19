@@ -24,9 +24,9 @@ public class ProfessionController {
     }
 
     @GetMapping("/by_person")
-    public String getProfessionByPersonName(@RequestParam("name") String name)
+    public String getProfessionByPersonName(@RequestParam("name") String name, @RequestParam("surname") String surname)
     {
-        return professionService.professionByPersonName(name);
+        return professionService.professionByPersonName(name, surname);
     }
 
     @PostMapping
