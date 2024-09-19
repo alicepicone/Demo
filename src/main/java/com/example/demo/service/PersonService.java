@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -82,5 +82,52 @@ public class PersonService {
             throw new NotFoundException("Nessun nome trovato che inizi con la lettera " + character);
         }
         return ResponseEntity.ok(names);
+    }
+
+    //Esercizio con gli Stream
+
+    public void testStreamPerson()
+    {
+        List<Person> personList = new ArrayList<>(personDao.findAll());
+
+        List<Person> personStartWith = personList
+                .stream()
+                .filter(person -> person.getName().startsWith("a"))
+                .collect(Collectors.toList());
+
+        List<Person> personOrdineCres = personList
+                .stream()
+                .sorted(Comparator.comparing(Person::getDateOfBirth))
+                .collect(Collectors.toList());
+
+        List<Person> personOrdineDecres = personList
+                .stream()
+                .sorted(Comparator.comparing(Person::getDateOfBirth).reversed())
+                .collect(Collectors.toList());
+
+        OptionalDouble media = personList
+                .stream()
+                .mapToInt(person -> person.getDateOfBirth().getYear())
+                .average();
+
+        Optional<Person> personaGiovane = personList
+                .stream()
+                .min(Comparator.comparing(Person::getDateOfBirth));
+    }
+
+    public void testStreamNumber() {
+
+        List<Integer> integerList = List.of(3, 9, 14, 2);
+
+        int sum = integerList.stream()
+                .reduce(0, Integer::sum);
+
+        int min = integerList.stream()
+                .min(Integer::compareTo)
+                .orElse(Integer.MAX_VALUE);
+
+        int max = integerList.stream()
+                .max(Integer::compareTo)
+                .orElse(Integer.MIN_VALUE);
     }
 }
