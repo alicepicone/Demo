@@ -93,17 +93,17 @@ public class PersonService {
         List<Person> personStartWith = personList
                 .stream()
                 .filter(person -> person.getName().startsWith("a"))
-                .collect(Collectors.toList());
+                .toList();
 
         List<Person> personOrdineCres = personList
                 .stream()
                 .sorted(Comparator.comparing(Person::getDateOfBirth))
-                .collect(Collectors.toList());
+                .toList();
 
         List<Person> personOrdineDecres = personList
                 .stream()
                 .sorted(Comparator.comparing(Person::getDateOfBirth).reversed())
-                .collect(Collectors.toList());
+                .toList();
 
         OptionalDouble media = personList
                 .stream()
