@@ -1,19 +1,19 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.PersonDao;
-import com.example.demo.dto.PersonDTOMapper;
-import com.example.demo.dto.PersonDto;
+import com.example.demo.dto.PersonDTO;
+import com.example.demo.mapper.PersonDTOMapper;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Person;
 import io.micrometer.common.util.StringUtils;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,12 +29,13 @@ public class PersonService {
         this.personDTOMapper = personDTOMapper;
     }
 
-    public Person addPerson(Person person)
+    public PersonDTO addPerson(Person person)
     {
-        return personDao.save(person);
+        personDao.save(person);
+        return personDTOMapper.apply(person);
     }
 
-    public List<PersonDto> getAllPeople()
+    public List<PersonDTO> getAllPeople()
     {
         return personDao.findAll()
                 .stream()
@@ -42,10 +43,11 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<PersonDto> getPeopleById(int id)
+    public PersonDTO getPeopleById(int id)
     {
         return personDao.findById(id)
-                .map(personDTOMapper);
+                .map(personDTOMapper)
+                .orElseThrow(() -> new EntityNotFoundException("Person not found"));
     }
 
     public boolean isValidCharacter(String character) {
@@ -80,5 +82,52 @@ public class PersonService {
             throw new NotFoundException("Nessun nome trovato che inizi con la lettera " + character);
         }
         return ResponseEntity.ok(names);
+    }
+
+    //Esercizio con gli Stream
+
+    public void testStreamPerson()
+    {
+        List<Person> personList = new ArrayList<>(personDao.findAll());
+
+        List<Person> personStartWith = personList
+                .stream()
+                .filter(person -> person.getName().startsWith("a"))
+                .toList();
+
+        List<Person> personOrdineCres = personList
+                .stream()
+                .sorted(Comparator.comparing(Person::getDateOfBirth))
+                .toList();
+
+        List<Person> personOrdineDecres = personList
+                .stream()
+                .sorted(Comparator.comparing(Person::getDateOfBirth).reversed())
+                .toList();
+
+        OptionalDouble media = personList
+                .stream()
+                .mapToInt(person -> person.getDateOfBirth().getYear())
+                .average();
+
+        Optional<Person> personaGiovane = personList
+                .stream()
+                .min(Comparator.comparing(Person::getDateOfBirth));
+    }
+
+    public void testStreamNumber() {
+
+        List<Integer> integerList = List.of(3, 9, 14, 2);
+
+        int sum = integerList.stream()
+                .reduce(0, Integer::sum);
+
+        int min = integerList.stream()
+                .min(Integer::compareTo)
+                .orElse(Integer.MAX_VALUE);
+
+        int max = integerList.stream()
+                .max(Integer::compareTo)
+                .orElse(Integer.MIN_VALUE);
     }
 }

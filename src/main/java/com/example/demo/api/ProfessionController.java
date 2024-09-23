@@ -1,8 +1,8 @@
 package com.example.demo.api;
 
-import com.example.demo.dto.PersonDto;
-import com.example.demo.dto.ProfessionDto;
+import com.example.demo.dto.ProfessionDTO;
 import com.example.demo.model.Profession;
+import com.example.demo.record.ProfessionRecord;
 import com.example.demo.service.ProfessionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequestMapping("api/v1/professions")
 @RestController
@@ -25,25 +24,25 @@ public class ProfessionController {
     }
 
     @GetMapping("/by_person")
-    public String getProfessionByPersonName(@RequestParam("name") String name)
+    public String getProfessionByPersonName(@RequestParam("name") String name, @RequestParam("surname") String surname)
     {
-        return professionService.professionByPersonName(name);
+        return professionService.professionByPersonName(name, surname);
     }
 
     @PostMapping
-    public void addProfession(@Valid @NonNull @RequestBody Profession profession)
+    public ProfessionDTO addProfession(@Valid @NonNull @RequestBody Profession profession)
     {
-        professionService.addProfession(profession);
+        return professionService.addProfession(profession);
     }
 
     @GetMapping
-    public List<ProfessionDto> getAllProfessions()
+    public List<ProfessionRecord> getAllProfessions()
     {
         return professionService.getAllProfession();
     }
 
     @GetMapping("/{id}")
-    public Optional<ProfessionDto> getProfessionById(@PathVariable("id") int id)
+    public ProfessionDTO getProfessionById(@PathVariable("id") int id)
     {
         return professionService.getProfessionById(id);
     }
@@ -54,9 +53,9 @@ public class ProfessionController {
     }
 
     @PutMapping("/{id}")
-    public void updateProfessionName(@PathVariable("id") int id, @RequestBody Profession profession)
+    public ProfessionDTO updateProfessionName(@PathVariable("id") int id, @RequestBody Profession profession)
     {
-        professionService.updateProfessionNameById(id, profession.getDescription());
+        return professionService.updateProfessionNameById(id, profession.getDescription());
     }
 
 }
