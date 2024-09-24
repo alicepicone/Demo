@@ -32,4 +32,14 @@ public class Person {
 
     @Column(name = "profession_id", insertable = false, updatable = false)
     private int professionId;
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id: " + id +
+                ", name: " + name +
+                ", surname: " + surname +
+                ", date of birth: " + dateOfBirth +
+                "}";
+    }
 }

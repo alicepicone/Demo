@@ -64,5 +64,17 @@ public class PersonController {
 
         vehicleList.forEach(Vehicle::getVehicleType);
     }
+
+    @GetMapping("/numb")
+    public void getStreamNumb() {
+
+        personService.testStreamNumber();
+    }
+
+    @GetMapping("/per")
+    public void getStreamPer() {
+
+        personService.testStreamPerson();
+    }
 }
 
