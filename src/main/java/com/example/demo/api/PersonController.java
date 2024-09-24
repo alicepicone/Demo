@@ -1,8 +1,12 @@
 package com.example.demo.api;
 
 import com.example.demo.dto.PersonDTO;
+import com.example.demo.model.Car;
 import com.example.demo.model.Person;
+import com.example.demo.model.Punto;
+import com.example.demo.model.Truck;
 import com.example.demo.service.PersonService;
+import com.example.demo.service.Vehicle;
 import jakarta.validation.Valid;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +51,18 @@ public class PersonController {
     public ResponseEntity<String> getNamesByChar(@RequestParam("char") String character) {
 
         return personService.getNamesByChar(character);
+    }
+
+    @GetMapping("/vehicles")
+    public void getVehicle() {
+
+        Vehicle a = new Car();
+        Vehicle b = new Truck();
+        Vehicle c = new Punto();
+
+        List<Vehicle> vehicleList = List.of(a, b, c);
+
+        vehicleList.forEach(Vehicle::getVehicleType);
     }
 }
 
