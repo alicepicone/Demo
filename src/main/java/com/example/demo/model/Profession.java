@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@ToString
 public class Profession {
 
     @Id
@@ -19,6 +20,7 @@ public class Profession {
     @NotBlank
     private String description;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "profession")
     List<Person> persons;
 
