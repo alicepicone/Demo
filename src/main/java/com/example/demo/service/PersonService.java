@@ -94,25 +94,34 @@ public class PersonService {
                 .stream()
                 .filter(person -> person.getName().startsWith("a"))
                 .toList();
+        System.out.println("Lista di persone che iniziano con la a: "  + personStartWith);
 
         List<Person> personOrdineCres = personList
                 .stream()
                 .sorted(Comparator.comparing(Person::getDateOfBirth))
                 .toList();
 
+        System.out.println("Lista in ordine crescente:" + personOrdineCres);
+
         List<Person> personOrdineDecres = personList
                 .stream()
                 .sorted(Comparator.comparing(Person::getDateOfBirth).reversed())
                 .toList();
+
+        System.out.println("Lista in ordine decrescente:" + personOrdineDecres);
 
         OptionalDouble media = personList
                 .stream()
                 .mapToInt(person -> person.getDateOfBirth().getYear())
                 .average();
 
+        System.out.println("Media:" + media);
+
         Optional<Person> personaGiovane = personList
                 .stream()
                 .min(Comparator.comparing(Person::getDateOfBirth));
+
+        System.out.println("Persona più giovane:" + personaGiovane);
     }
 
     public void testStreamNumber() {
@@ -122,12 +131,18 @@ public class PersonService {
         int sum = integerList.stream()
                 .reduce(0, Integer::sum);
 
+        System.out.println(sum);
+
         int min = integerList.stream()
                 .min(Integer::compareTo)
                 .orElse(Integer.MAX_VALUE);
 
+        System.out.println(min);
+
         int max = integerList.stream()
                 .max(Integer::compareTo)
                 .orElse(Integer.MIN_VALUE);
+
+        System.out.println(max);
     }
 }

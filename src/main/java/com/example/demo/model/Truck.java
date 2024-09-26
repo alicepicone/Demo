@@ -5,7 +5,7 @@ import com.example.demo.service.Vehicle;
 public class Truck implements Vehicle
 {
     @Override
-    public String getVehicleType() {
-        return "I am a Truck";
+    public void getVehicleType() {
+        System.out.println("I am a Truck");
     }
 }
